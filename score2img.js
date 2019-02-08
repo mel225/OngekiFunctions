@@ -1,7 +1,9 @@
 function read_html2canvas(){
   return new Promise(function(resolve, reject){
     if(location.href != "https://ongeki-net.com/ongeki-mobile/home/ratingTargetMusic/"){
-      alert("指定のページでの実行をお願いいたします。\n https://ongeki-net.com/ongeki-mobile/home/ratingTargetMusic/");
+      if(window.confirm("指定のページでの実行をお願いいたします。\n指定ページへ移動しますか？（ログインが必要です）"){
+        location.href = "https://ongeki-net.com/ongeki-mobile/home/ratingTargetMusic/";
+      }
       reject();
     }
     if(document.getElementById("mel225_score2img"))

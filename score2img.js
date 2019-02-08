@@ -1,10 +1,10 @@
-read_html2canvas().then(score2img);
-
 function read_html2canvas(){
   return new Promise(function(resolve, reject){
-    var s = d.createElement("script");
+    if(document.getElementById("mel225_score2img")) reject();
+    var s = document.createElement("script");
     s.src = "https://mel225.github.io/OngekiFunctions/html2canvas.js";
-    d.head.appendChild(s);
+    s.id = "mel225_score2img";
+    document.head.appendChild(s);
     s.onload = function(){
       console.log("html2canvas.js loaded.");
       resolve();
@@ -13,30 +13,38 @@ function read_html2canvas(){
 }
 
 function score2img(){
-  var title_imgs = d.getElementsByClassName("title");
+  var title_imgs = document.getElementsByClassName("title");
+  var no = 0;
   [].forEach.call(title_imgs, function(img){
     if(img.src.includes("rating")){
-      var element = img.parentNode.nextElementSibling;
-      var img_div = insertBefore(element, d.createElement("div"));
-      img_div.className = "m_t_5 m_b_5";
-      
-      while(element.tagName.toLowerCase() == "div"){
-        var score_div = element;
-        element = element.nextElementSibling;
-        score_div.parentNode.removeChild(score_div);
-        img_div.appendChild(score_div);
+      if(document.getElementById("img_" + no)){
+        var canvas_div = document.getElementById("img_" + no);
+        canvas_div.parentNode.removeChild(canvas_div);
+      }else{
+        var element = img.parentNode.nextElementSibling;
+        var img_div = insertBefore(element, document.createElement("div"));
+        img_div.className = "m_t_5 m_b_5";
+        
+        while(element.tagName.toLowerCase() == "div"){
+          var score_div = element;
+          element = element.nextElementSibling;
+          score_div.parentNode.removeChild(score_div);
+          img_div.appendChild(score_div);
+        }
       }
       
+      var canvas_div = insertBefore(img_div, document.createElement("img"));
+      canvas_div.className = "m_5";
+      canvas_div.id = "img_" + no;
       html2canvas(img_div, {
       onrendered: function(canvas){
-        var canvas_div = insertBefore(img_div, d.createElement("img"));
         canvas_div.src = canvas.toDataURL();
-        canvas_div.className = "m_5";
       }
       });
       
       img_div.display = "none";
-      console.log(img);
+      no++;
+      console.log(canvas_div);
     }
   });
   

@@ -44,7 +44,7 @@ function score2img(){
       }
       });
       
-      img_div.display = "none";
+      img_div.style.display = "none";
       no++;
       console.log(canvas_div);
     }

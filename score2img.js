@@ -15,13 +15,14 @@ function read_html2canvas(){
 function score2img(){
   var title_imgs = document.getElementsByClassName("title");
   var no = 0;
-  [].forEach.call(title_imgs, function(img){
+  Promise.all([].map.call(title_imgs, function(img){
     if(img.src.includes("rating")){
       var img_div, element, canvas_div;
       if(document.getElementById("img_" + no)){
         canvas_div = document.getElementById("img_" + no);
         canvas_div.parentNode.removeChild(canvas_div);
         img_div = document.getElementById("img_div_" + no);
+        img_div.style.display = "block";
       }else{
         element = img.parentNode.nextElementSibling;
         img_div = insertBefore(element, document.createElement("div"));
@@ -38,15 +39,23 @@ function score2img(){
       var canvas_div = insertBefore(img_div, document.createElement("img"));
       canvas_div.className = "m_5";
       canvas_div.id = "img_" + no;
-      html2canvas(img_div, {
-      onrendered: function(canvas){
-        canvas_div.src = canvas.toDataURL();
-      }
+      var promise = new Promise(function(resolve, reject){
+        html2canvas(img_div, {
+        onrendered: function(canvas){
+          canvas_div.src = canvas.toDataURL();
+          resolve();
+        }
+        });
       });
       
-      img_div.style.display = "none";
       no++;
       console.log(canvas_div);
+      return promise;
+    }
+  })).then(function(){
+    var i;
+    for(i=0; document.getElementById("img_"+i); i++){
+      document.getElementById("img_div_" + i).style.display = "none";
     }
   });
   

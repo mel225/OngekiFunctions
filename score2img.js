@@ -17,12 +17,14 @@ function score2img(){
   var no = 0;
   [].forEach.call(title_imgs, function(img){
     if(img.src.includes("rating")){
+      var img_div, element, canvas_div;
       if(document.getElementById("img_" + no)){
-        var canvas_div = document.getElementById("img_" + no);
+        canvas_div = document.getElementById("img_" + no);
         canvas_div.parentNode.removeChild(canvas_div);
+        img_div = getElementById("img_div_" + no);
       }else{
-        var element = img.parentNode.nextElementSibling;
-        var img_div = insertBefore(element, document.createElement("div"));
+        element = img.parentNode.nextElementSibling;
+        img_div = insertBefore(element, document.createElement("div"));
         img_div.className = "m_t_5 m_b_5";
         
         while(element.tagName.toLowerCase() == "div"){

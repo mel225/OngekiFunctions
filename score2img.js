@@ -21,7 +21,7 @@ function score2img(){
       if(document.getElementById("img_" + no)){
         canvas_div = document.getElementById("img_" + no);
         canvas_div.parentNode.removeChild(canvas_div);
-        img_div = getElementById("img_div_" + no);
+        img_div = document.getElementById("img_div_" + no);
       }else{
         element = img.parentNode.nextElementSibling;
         img_div = insertBefore(element, document.createElement("div"));

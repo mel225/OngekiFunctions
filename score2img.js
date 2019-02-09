@@ -34,6 +34,7 @@ function score2img(){
         element = img.parentNode.nextElementSibling;
         img_div = element.parentNode.insertBefore(document.createElement("div"), element);
         img_div.className = "m_t_5 m_b_5";
+        img_div.id = "img_div_" + no;
         
         while(element.tagName.toLowerCase() == "div"){
           var score_div = element;

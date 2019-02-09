@@ -66,14 +66,15 @@ function score2img(){
 
   document.body.oncontextmenu = "";
   document.oncontextmenu = "";
-  
-  function recursion(obj){
-    var tempArray = Array.prototype.slice.call(obj.children);
-    /*ここで要素を何か操作する*/
-    //console.log('"obj.localName" = ' + obj.localName);
-    if(!obj.id || !obj.id.includes("img_")){
-      obj.oncontextmenu = function(){return false;};
-    }
-    tempArray.forEach(recursion);
+  recursion(document);
+}
+
+function recursion(obj){
+  var tempArray = Array.prototype.slice.call(obj.children);
+  /*ここで要素を何か操作する*/
+  //console.log('"obj.localName" = ' + obj.localName);
+  if(!obj.id || !obj.id.includes("img_")){
+    obj.oncontextmenu = function(){return false;};
   }
+  tempArray.forEach(recursion);
 }

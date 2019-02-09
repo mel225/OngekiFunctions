@@ -1,4 +1,5 @@
-//load_html2canvas().then(score2img);
+load_html2canvas().then(score2img);
+/*
 load_html2canvas().then(
   function(){
     console.log("loaded html2canvas");
@@ -15,6 +16,7 @@ load_html2canvas().then(
     };
     btn.id = "exec_button";
   });
+*/
 
 function load_html2canvas(){
   return new Promise(function(resolve, reject){
@@ -121,12 +123,16 @@ function recursion(obj){
     var tempArray = Array.prototype.slice.call(obj.children);
     /*ここで要素を何か操作する*/
     console.log(obj);
-    if(!obj.id || !obj.id.includes("img_")){
+    if(!obj.id){
+      if(!obj.id.includes("img_")){
+        obj.oncontextmenu = function(){return false;};
+        tempArray.forEach(recursion);
+      }else{
+        obj.parentNode.oncontextmenu = "";
+      }
+    }else{
       obj.oncontextmenu = function(){return false;};
       tempArray.forEach(recursion);
-    }else if(obj.id){
-      console.log(obj);
-      obj.parentNode.oncontextmenu = "";
     }
   }
 }

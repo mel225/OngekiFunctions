@@ -25,6 +25,11 @@ function read_html2canvas(){
 function score2img(){
   var title_imgs = document.getElementsByClassName("title");
   var no = 0;
+  // 強制的にviewportを書き換えるviewportContent = "width=device-width,initial-scale=1.0,user-scalable=yes,shrink-to-fit=no";
+  var defaultIsiOS = isiOS;
+  isiOS = false;
+  updateMetaViewport();
+  
   return Promise.all([].map.call(title_imgs, function(img){
     return new Promise(function(resolve, reject){
       // divに乗せる
@@ -82,6 +87,8 @@ function score2img(){
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
     document.body.childNodes.forEach(recursion);
+    isiOS = defaultIsiOS;
+    updateMetaViewport();
     console.log("========== completed. ==========");
   });
 }

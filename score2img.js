@@ -45,25 +45,18 @@ function score2img(){
   var no = 0;
   
   return Promise.all([].map.call(title_imgs, function(img){
-    return new Promise(function(resolve, reject){
-      // divに乗せる
-      var img_div = score_onto_div(img);
-      if(img_div){
-        resolve(img_div);
-      }else{
-        reject();
-      }
-    }).then(function(img_div){
+    // divに乗せる
+    return score_onto_div(img)
       // canvasにする
-      return div2img(img_div);
-    }).then(function(img_div){
-      // img_divを非表示にする
-      //img_div.style.display = "none";
-      return;
-    }).catch(function(){
-      console.log("catched");
-      return;
-    });
+      .then(div2img)
+        // img_divを非表示にする
+        .then(function(img_div){
+          //img_div.style.display = "none";
+          return;
+        }).catch(function(){
+          console.log("catched");
+          return;
+        });
   })).then(function(){
     // img_div以外の要素に右クリック禁止属性を付与する
     document.body.oncontextmenu = "";
@@ -92,9 +85,9 @@ function score_onto_div(img){
       }
       
       console.log(img_div.id + " divに乗せた。");
-      return img_div;
+      resolve(img_div);
     }else{
-      return null;
+      reject();
     }
   });
 }

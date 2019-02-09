@@ -2,9 +2,10 @@
 load_html2canvas().then(
   function(){
     console.log("loaded html2canvas");
-    var btn = document.body.appendChild(document.createElement("div"));
+    var btn = document.body.appendChild(document.createElement("button"));
     btn.style.width = "100%";
-    btn.style.height = "20px";
+    btn.style.height = "40px";
+    btn.style.textalign = "center";
     btn.style.background = "#fff";
     btn.innerText = "score2imgを実行する";
     btn.onclick = function(){

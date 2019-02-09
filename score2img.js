@@ -46,28 +46,11 @@ function score2img(){
         }
       }
       
-      var canvas_div = img_div.parentNode.insertBefore(document.createElement("a"), img_div);
+      var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
       canvas_div.id = "img_" + no;
       canvas_div.className = "m_5";
       var promise = html2canvas(img_div).then(function(canvas){
-        /*
-        var image = canvas.toDataURL("image/png").replace(/^data:image\/png/, "data:application/octet-stream");
-        //document.querySelector("#"+canvas_div.id)
-        canvas_div.addEventListener("click", (e)=>e.target.href=URL.createObjectURL(
-          new Blob(['hello'], { type: "text/plain" })
-          ));
-        $("#"+canvas_div.id).attr("href", image).attr("download", img.src.slice(img.src.lastIndexOf("_")+1))
-          .attr("data-ajax", false);
-          */
-        canvas.toBlob(blob=>{
-          document.querySelector("#" + canvas_div.id).addEventListener("click", function(e){
-            canvas_div.href=URL.createObjectURL(blob);
-            console.log(e.target);
-            canvas_div.click();
-          });
-        });
-        canvas_div.appendChild(document.createElement("img")).src = canvas.toDataURL();
-        //canvas_div.src = canvas.toDataURL();
+        canvas_div.src = canvas.toDataURL();
         return Promise.reslove;
       });
       no++;
@@ -80,14 +63,17 @@ function score2img(){
       document.getElementById("img_div_" + i).style.display = "none";
     }
   });
-/*
+
   document.body.oncontextmenu = "";
   document.oncontextmenu = "";
-  document.body.childNodes.forEach(function(element){
-    console.log(element);
-    if(!element.id || !element.id.includes("img_")){
-      element.oncontextmenu = function(){return false;};
+  
+  function recursion(obj){
+    var tempArray = Array.prototype.slice.call(obj.children);
+    /*ここで要素を何か操作する*/
+    //console.log('"obj.localName" = ' + obj.localName);
+    if(!obj.id || !obj.id.includes("img_")){
+      obj.oncontextmenu = function(){return false;};
     }
-  });
-  */
+    tempArray.forEach(recursion);
+  }
 }

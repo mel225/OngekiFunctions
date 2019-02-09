@@ -74,28 +74,29 @@ function score2img(){
 }
 
 function score_onto_div(img){
-  console.log(img.src);
-  if(img.src.includes("rating")){
-    var img_div = document.createElement("div");
-    img_div.className = "m_t_5 m_b_5";
-    img_div.id = "img_div_" + no++;
-    
-    var element = img.parentNode.nextElementSibling;
-    element.parentNode.insertBefore(img_div, element);
-    
-    console.log(img_div, element);
-    while(element.tagName.toLowerCase() == "div"){
-      var score_div = element;
-      element = element.nextElementSibling;
-      score_div.parentNode.removeChild(score_div);
-      img_div.appendChild(score_div);
+  return new Promise(function(resolve, reject){
+    if(img.src.includes("rating")){
+      var img_div = document.createElement("div");
+      img_div.className = "m_t_5 m_b_5";
+      img_div.id = "img_div_" + no++;
+      
+      var element = img.parentNode.nextElementSibling;
+      element.parentNode.insertBefore(img_div, element);
+      
+      console.log(img_div, element);
+      while(element.tagName.toLowerCase() == "div"){
+        var score_div = element;
+        element = element.nextElementSibling;
+        score_div.parentNode.removeChild(score_div);
+        img_div.appendChild(score_div);
+      }
+      
+      console.log(img_div.id + " divに乗せた。");
+      return img_div;
+    }else{
+      return null;
     }
-    
-    console.log(img_div.id + " divに乗せた。");
-    return img_div;
-  }else{
-    return null;
-  }
+  });
 }
 
 function div2img(img_div){
@@ -122,17 +123,12 @@ function recursion(obj){
   if(obj.children){
     var tempArray = Array.prototype.slice.call(obj.children);
     /*ここで要素を何か操作する*/
-    console.log(obj);
-    if(!obj.id){
-      if(!obj.id.includes("img_")){
-        obj.oncontextmenu = function(){return false;};
-        tempArray.forEach(recursion);
-      }else{
-        obj.parentNode.oncontextmenu = "";
-      }
-    }else{
+    if(!obj.id || !obj.id.includes("img_")){
       obj.oncontextmenu = function(){return false;};
       tempArray.forEach(recursion);
+    }else if(obj.id){
+      console.log(obj);
+      obj.parentNode.oncontextmenu = "";
     }
   }
 }

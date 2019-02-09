@@ -109,7 +109,7 @@ function div2img(img_div){
     console.log(canvas_div);
     console.log(img_div.id + " canvasにした。");
     return img_div;
-  }
+  });
 }
 
 function recursion(obj){

@@ -65,7 +65,7 @@ function score2img(){
 
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
-    recursion(document.body.childNodes);
+    document.body.childNodes.forEach(recursion);
   });
 }
 
@@ -77,6 +77,8 @@ function recursion(obj){
     if(!obj.id || !obj.id.includes("img_")){
       obj.oncontextmenu = function(){return false;};
       console.log("   oncontextmenu change to false.");
+    }else if(obj.id){
+      alert(obj);
     }
     tempArray.forEach(recursion);
   }

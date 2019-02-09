@@ -37,7 +37,8 @@ function score2img(){
         
         var element = img.parentNode.nextElementSibling;
         element.parentNode.insertBefore(img_div, element);
-        
+
+        console.log(img_div, element);
         while(element.tagName.toLowerCase() == "div"){
           var score_div = element;
           element = element.nextElementSibling;
@@ -45,9 +46,11 @@ function score2img(){
           img_div.appendChild(score_div);
         }
         
+        console.log("divに乗せた。");
         resolve(img_div);
+      }else{
+        reject();
       }
-      reject();
     }).then(function(img_div){
       // canvasにする
       var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
@@ -60,6 +63,7 @@ function score2img(){
         canvas_div.style.width = document.body.clientWidth;
         canvas_div.style.height = document.body.clientWidth * ratio;
         console.log(canvas_div);
+        conosole.log("canvasにした。");
         return img_div;
       });
     }).then(function(img_div){

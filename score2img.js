@@ -6,15 +6,17 @@ function read_html2canvas(){
       }
       reject();
     }
-    if(document.getElementById("mel225_score2img"))
+    if(document.getElementById("mel225_score2img")){
       reject();
-    var s = document.createElement("script");
-    s.src = "https://mel225.github.io/OngekiFunctions/html2canvas.js";
-    s.id = "mel225_score2img";
-    document.head.appendChild(s);
-    s.onload = function(){
-      console.log("html2canvas.js loaded.");
-      resolve();
+    }else{
+      var s = document.createElement("script");
+      s.src = "https://mel225.github.io/OngekiFunctions/html2canvas.js";
+      s.id = "mel225_score2img";
+      document.head.appendChild(s);
+      s.onload = function(){
+        console.log("html2canvas.js loaded.");
+        resolve();
+      }
     }
   });
 }

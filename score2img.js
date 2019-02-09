@@ -87,6 +87,7 @@ function score_onto_div(img){
       console.log(img_div.id + " divに乗せた。");
       resolve(img_div);
     }else{
+      console.log(img.src.includes("rating"));
       reject();
     }
   });

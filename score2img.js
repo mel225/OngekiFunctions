@@ -53,8 +53,7 @@ function score2img(){
       }
     }).then(function(img){
       // divに乗せる
-      return score_onto_div(img, no);
-      no++;
+      return score_onto_div(img, no++);
     }).then(function(img_div){
       // canvasにする
       return div2img(img_div);
@@ -108,7 +107,7 @@ function div2img(img_div){
   canvas_div.style.width = "100%";
   $("#"+canvas_div.id).css({"-webkit-touch-callout":"default", "touch-callout":"default"});
 
-  canvas_img = canvas_div.appendChild(document.createElement("img"));
+  var canvas_img = canvas_div.appendChild(document.createElement("img"));
   
   return html2canvas(img_div).then(function(canvas){
     canvas_img.src = canvas.toDataURL();
@@ -125,7 +124,6 @@ function recursion(obj){
       obj.oncontextmenu = function(){return false;};
       tempArray.forEach(recursion);
     }else if(obj.id){
-      console.log(obj);
       obj.parentNode.oncontextmenu = "";
     }
   }

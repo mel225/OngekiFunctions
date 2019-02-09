@@ -77,9 +77,10 @@ function recursion(obj){
     if(!obj.id || !obj.id.includes("img_")){
       obj.oncontextmenu = function(){return false;};
       console.log("   oncontextmenu change to false.");
+      tempArray.forEach(recursion);
     }else if(obj.id){
       alert(obj);
+      obj.parentNode.oncontextmenu = "";
     }
-    tempArray.forEach(recursion);
   }
 }

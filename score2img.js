@@ -47,6 +47,8 @@ function score2img(){
       }
       
       var canvas_div = img_div.parentNode.insertBefore(document.createElement("a"), img_div);
+      canvas_div.id = "img_" + no;
+      canvas_div.className = "m_5";
       canvas_div.download = img.src.slice(img.src.lastIndexOf("_")+1); 
       var promise = html2canvas(img_div).then(function(canvas){
         var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");

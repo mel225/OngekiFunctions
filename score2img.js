@@ -46,6 +46,12 @@ function score2img(){
   
   return Promise.all([].map.call(title_imgs, function(img){
     return new Promise(function(resolve, reject){
+      if(img.src.includes("rating")){
+        resolve(img);
+      }else{
+        reject(img);
+      }
+    }).then(function(img){
       // divに乗せる
       resolve(score_onto_div(img, no));
       no++;
@@ -72,27 +78,23 @@ function score2img(){
 
 function score_onto_div(img, no){
   return new Promise(function(resolve, reject){
-    if(img.src.includes("rating")){
-      var img_div = document.createElement("div");
-      img_div.className = "m_t_5 m_b_5";
-      img_div.id = "img_div_" + no;
-      
-      var element = img.parentNode.nextElementSibling;
-      element.parentNode.insertBefore(img_div, element);
-      
-      console.log(img_div, element);
-      while(element.tagName.toLowerCase() == "div"){
-        var score_div = element;
-        element = element.nextElementSibling;
-        score_div.parentNode.removeChild(score_div);
-        img_div.appendChild(score_div);
-      }
-      
-      console.log(img_div.id + " divに乗せた。");
-      resolve(img_div);
-    }else{
-      return Promise.reject;
+    var img_div = document.createElement("div");
+    img_div.className = "m_t_5 m_b_5";
+    img_div.id = "img_div_" + no;
+    
+    var element = img.parentNode.nextElementSibling;
+    element.parentNode.insertBefore(img_div, element);
+    
+    console.log(img_div, element);
+    while(element.tagName.toLowerCase() == "div"){
+      var score_div = element;
+      element = element.nextElementSibling;
+      score_div.parentNode.removeChild(score_div);
+      img_div.appendChild(score_div);
     }
+    
+    console.log(img_div.id + " divに乗せた。");
+    resolve(img_div);
   });
 }
 

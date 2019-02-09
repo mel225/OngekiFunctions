@@ -46,27 +46,12 @@ function score2img(){
         }
       }
       
-      var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
-      canvas_div.className = "m_5";
-      canvas_div.id = "img_" + no;
-      canvas_div.setAttribute("oncontextmenu", "");
-      /*
-      var promise = new Promise(function(resolve, reject){
-        html2canvas(img_div, {
-        onrendered: function(canvas){
-          canvas_div.src = canvas.toDataURL();
-          resolve();
-        }
-        });
-      });
-      */
+      var canvas_div = document.createElement("a"); 
+      canvas_div.download = img.src.slice(img.src.lastIndexOf("_")+1); 
       var promise = html2canvas(img_div).then(function(canvas){
-        /*
-        canvas_div.style.backgroundImage = "url(" + canvas.toDataURL() + ")";
-        canvas_div.style.width = canvas.width;
-        canvas_div.style.height = canvas.height;
-          */
-        canvas_div.src = canvas.toDataURL();
+        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        canvas_div.href = image; 
+        //canvas_div.src = canvas.toDataURL();
         return Promise.reslove;
       });
       no++;
@@ -79,7 +64,7 @@ function score2img(){
       document.getElementById("img_div_" + i).style.display = "none";
     }
   });
-
+/*
   document.body.oncontextmenu = "";
   document.oncontextmenu = "";
   document.body.childNodes.forEach(function(element){
@@ -88,4 +73,5 @@ function score2img(){
       element.oncontextmenu = function(){return false;};
     }
   });
+  */
 }

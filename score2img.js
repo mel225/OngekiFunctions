@@ -45,18 +45,20 @@ function score2img(){
   var no = 0;
   
   return Promise.all([].map.call(title_imgs, function(img){
-    // divに乗せる
-    return score_onto_div(img)
+    return new Promise(resolve, reject(){
+      // divに乗せる
+      return score_onto_div(img);
+    }).then(function(img_div){
       // canvasにする
-      .then(div2img)
-        // img_divを非表示にする
-        .then(function(img_div){
-          //img_div.style.display = "none";
-          return;
-        }).catch(function(){
-          console.log("catched");
-          return;
-        });
+      return div2img(img_div);
+    }).then(function(img_div){
+      // img_divを非表示にする
+      //img_div.style.display = "none";
+      return;
+    }).catch(function(){
+      console.log("catched");
+      return;
+    });
   })).then(function(){
     // img_div以外の要素に右クリック禁止属性を付与する
     document.body.oncontextmenu = "";

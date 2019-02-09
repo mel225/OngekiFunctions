@@ -102,20 +102,16 @@ function score_onto_div(img, no){
 
 function div2img(img_div){
   // canvasにする
-  var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
+  var canvas_div = img_div.parentNode.insertBefore(document.createElement("div"), img_div);
   canvas_div.id = img_div.id.replace("div_", "");
   canvas_div.className = "m_5";
+  canvas_div.style.width = "100%";
+  $("#"+canvas_div.id).css({"-webkit-touch-callout":"default", "touch-callout":"default"});
+
+  canvas_img = canvas_div.appendChild(document.createElement("img"));
   
   return html2canvas(img_div).then(function(canvas){
-    alert(canvas);
-    console.log(canvas);
-    img_div.parentNode.insertBefore(canvas, img_div);
-    canvas.id = "img_canvas_" + img_div.id.replace("img_","");
-    
-    canvas_div.src = canvas.toDataURL();
-    canvas_div.style.width = "100%";
-    $("#"+canvas_div.id).css({"-webkit-touch-callout":"default", "touch-callout":"default"});
-    console.log(canvas_div);
+    canvas_img.src = canvas.toDataURL();
     console.log(img_div.id + " canvasにした。");
     return img_div;
   });

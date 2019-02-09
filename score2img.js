@@ -72,8 +72,9 @@ function score2img(){
     document.oncontextmenu = "";
     document.body.childNodes.forEach(recursion);
     console.log("========== completed. ==========");
+    alert("completed.");
   }, function(){
-    console.log("catched?");
+    alert("catched?");
   });
 }
 
@@ -104,10 +105,10 @@ function div2img(img_div){
   var canvas_div = img_div.parentNode.insertBefore(document.createElement("div"), img_div);
   canvas_div.id = img_div.id.replace("div_", "");
   canvas_div.className = "m_5";
-  canvas_div.style.width = "100%";
   $("#"+canvas_div.id).css({"-webkit-touch-callout":"default", "touch-callout":"default"});
 
   var canvas_img = canvas_div.appendChild(document.createElement("img"));
+  canvas_img.style.width = "100%";
   
   return html2canvas(img_div).then(function(canvas){
     canvas_img.src = canvas.toDataURL();

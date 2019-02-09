@@ -83,7 +83,9 @@ function score2img(){
   document.body.oncontextmenu = "";
   document.oncontextmenu = "";
   document.body.childNodes.forEach(function(element){
-    if(!element.id.includes("img_")){
+    var s = element.getAttribute("id");
+    console.log(element);
+    if(s == null || s.includes("img_")){
       element.oncontextmenu = "return false;";
     }
   });

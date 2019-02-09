@@ -22,21 +22,20 @@ function read_html2canvas(){
 }
 
 function score2img(){
+  if(document.getElementById("mel225_score2img")){
+    return Promise.reject;
   var title_imgs = document.getElementsByClassName("title");
   var no = 0;
-  Promise.all([].map.call(title_imgs, function(img){
-    if(img.src.includes("rating")){
-      var img_div, element, canvas_div;
-      if(document.getElementById("img_" + no)){
-        canvas_div = document.getElementById("img_" + no);
-        canvas_div.parentNode.removeChild(canvas_div);
-        img_div = document.getElementById("img_div_" + no);
-        img_div.style.display = "block";
-      }else{
-        element = img.parentNode.nextElementSibling;
-        img_div = element.parentNode.insertBefore(document.createElement("div"), element);
+  return Promise.all([].map.call(title_imgs, function(img){
+    return new Promise(function(resolve, reject){
+      // divに乗せる
+      if(img.src.includes("rating")){
+        var img_div = document.createElement("div");
         img_div.className = "m_t_5 m_b_5";
         img_div.id = "img_div_" + no;
+        
+        var element = img.parentNode.nextElementSibling;
+        element.parentNode.insertBefore(img_div, element);
         
         while(element.tagName.toLowerCase() == "div"){
           var score_div = element;
@@ -44,25 +43,30 @@ function score2img(){
           score_div.parentNode.removeChild(score_div);
           img_div.appendChild(score_div);
         }
+        
+        resolve(img_div);
       }
-      
+    }).then(function(img_div){
+      // canvasにする
       var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
       canvas_div.id = "img_" + no;
       canvas_div.className = "m_5";
-      var promise = html2canvas(img_div).then(function(canvas){
+      return html2canvas(img_div).then(function(canvas){
         canvas_div.src = canvas.toDataURL();
-        return Promise.reslove;
+        console.log("w:h", canvas_div.scrollHeight, ":", canvas_div.scrollWidth);
+        var ratio = canvas_div.scrollHeight / canvas_div.scrollWidth;
+        canvas_div.style.width = document.body.clientWidth;
+        canvas_div.style.height = document.body.clientWidth * ratio;
+        console.log(canvas_div);
+        return img_div;
       });
-      no++;
-      console.log(canvas_div);
-      return promise;
-    }
+    }).then(function(img_div){
+      // img_divを非表示にする
+      img_div.style.display = "none";
+      return;
+    });
+    no++;
   })).then(function(){
-    var i;
-    for(i=0; document.getElementById("img_"+i); i++){
-      document.getElementById("img_div_" + i).style.display = "none";
-    }
-
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
     document.body.childNodes.forEach(recursion);

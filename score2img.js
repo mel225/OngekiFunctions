@@ -47,7 +47,7 @@ function score2img(){
   return Promise.all([].map.call(title_imgs, function(img){
     return new Promise(function(resolve, reject){
       // divに乗せる
-      return score_onto_div(img);
+      return score_onto_div(img, no++);
     }).then(function(img_div){
       // canvasにする
       return div2img(img_div);
@@ -68,13 +68,13 @@ function score2img(){
   });
 }
 
-function score_onto_div(img){
+function score_onto_div(img, no){
   return new Promise(function(resolve, reject){
     if(img.src.includes("rating")){
       console.log(img.src.includes("rating"));
       var img_div = document.createElement("div");
       img_div.className = "m_t_5 m_b_5";
-      img_div.id = "img_div_" + no++;
+      img_div.id = "img_div_" + no;
       
       var element = img.parentNode.nextElementSibling;
       element.parentNode.insertBefore(img_div, element);
@@ -91,7 +91,7 @@ function score_onto_div(img){
       resolve(img_div);
     }else{
       console.log(img.src.includes("rating"));
-      reject();
+      return Promise.reject;
     }
   });
 }

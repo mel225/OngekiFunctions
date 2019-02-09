@@ -1,3 +1,5 @@
+read_html2canvas().then(score2img);
+
 function read_html2canvas(){
   return new Promise(function(resolve, reject){
     if(location.href != "https://ongeki-net.com/ongeki-mobile/home/ratingTargetMusic/"){
@@ -5,8 +7,7 @@ function read_html2canvas(){
         location.href = "https://ongeki-net.com/ongeki-mobile/home/ratingTargetMusic/";
       }
       reject();
-    }
-    if(document.getElementById("mel225_score2img")){
+    }else if(document.getElementById("mel225_score2img")){
       reject();
     }else{
       var s = document.createElement("script");

@@ -69,6 +69,7 @@ function score2img(){
 function score_onto_div(img){
   return new Promise(function(resolve, reject){
     if(img.src.includes("rating")){
+      console.log(img.src.includes("rating"));
       var img_div = document.createElement("div");
       img_div.className = "m_t_5 m_b_5";
       img_div.id = "img_div_" + no++;

@@ -93,7 +93,7 @@ function score_onto_div(img, no){
       resolve(img_div);
     }else{
       console.log(img.src.includes("rating"));
-      return Promise.reject;
+      reject();
     }
   });
 }

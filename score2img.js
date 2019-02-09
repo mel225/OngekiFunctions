@@ -9,9 +9,11 @@ load_html2canvas().then(
     btn.style.background = "#fff";
     btn.innerText = "score2imgを実行する";
     btn.onclick = function(){
+      alert("ボタンがクリックされました。");
       if(document.getElementById("img_0"))
         score2img();
     };
+    btn.id = "exec_button";
   });
 
 function load_html2canvas(){

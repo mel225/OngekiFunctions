@@ -79,4 +79,12 @@ function score2img(){
       document.getElementById("img_div_" + i).style.display = "none";
     }
   });
+
+  document.body.oncontextmenu = "";
+  document.oncontextmenu = "";
+  document.body.childNodes.forEach(function(element){
+    if(!element.id.includes("img_")){
+      element.oncontextmenu = "return false;";
+    }
+  });
 }

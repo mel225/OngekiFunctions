@@ -46,7 +46,7 @@ function score2img(){
         }
       }
       
-      var canvas_div = img_div.parentNode.insertBefore(document.createElement("a"), img_div);
+      var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
       canvas_div.id = "img_" + no;
       canvas_div.className = "m_5";
       var promise = html2canvas(img_div).then(function(canvas){
@@ -62,8 +62,8 @@ function score2img(){
         canvas.toBlob(blob=>{
           document.querySelector("#" + canvas_div.id).addEventListener("click", (e)=>e.target.href=URL.createObjectURL(blob));
         });
-        canvas_div.appendChild(document.createElement("img")).src = canvas.toDataURL();
-        //canvas_div.src = canvas.toDataURL();
+        //canvas_div.appendChild(document.createElement("img")).src = canvas.toDataURL();
+        canvas_div.src = canvas.toDataURL();
         return Promise.reslove;
       });
       no++;

@@ -47,6 +47,7 @@ function score2img(){
         
         resolve(img_div);
       }
+      reject();
     }).then(function(img_div){
       // canvasにする
       var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
@@ -65,7 +66,11 @@ function score2img(){
       // img_divを非表示にする
       img_div.style.display = "none";
       return;
+    }).catch(function(){
+      console.log("catched");
+      return;
     });
+    console.log("img_" + no + " finished.");
     no++;
   })).then(function(){
     // img_div以外の要素に右クリック禁止属性を付与する

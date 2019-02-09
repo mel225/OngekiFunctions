@@ -60,7 +60,10 @@ function score2img(){
           .attr("data-ajax", false);
           */
         canvas.toBlob(blob=>{
-          document.querySelector("#" + canvas_div.id).addEventListener("click", (e)=>e.target.href=URL.createObjectURL(blob));
+          document.querySelector("#" + canvas_div.id).addEventListener("click", (e)=>{
+            e.target.href=URL.createObjectURL(blob);
+            console.log(canvas_div);
+          });
         });
         //canvas_div.appendChild(document.createElement("img")).src = canvas.toDataURL();
         canvas_div.src = canvas.toDataURL();

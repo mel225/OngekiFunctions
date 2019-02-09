@@ -69,6 +69,7 @@ function score2img(){
         canvas_div.style.height = document.body.clientWidth * ratio;
           */
         canvas_div.style.width = "100%";
+        $("#"+canvas_div.id).css({"-webkit-touch-callout":"default", "touch-callout":"default"});
         console.log(canvas_div);
         alert(img_div.id + " canvasにした。");
         return img_div;

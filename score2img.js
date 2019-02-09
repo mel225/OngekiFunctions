@@ -53,7 +53,7 @@ function score2img(){
       }
     }).then(function(img){
       // divに乗せる
-      resolve(score_onto_div(img, no));
+      return score_onto_div(img, no);
       no++;
     }).then(function(img_div){
       // canvasにする

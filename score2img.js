@@ -65,7 +65,7 @@ function score2img(){
 
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
-    recursion(document.body);
+    recursion(document.body.chileNodes);
   });
 }
 

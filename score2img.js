@@ -47,7 +47,8 @@ function score2img(){
   return Promise.all([].map.call(title_imgs, function(img){
     return new Promise(function(resolve, reject){
       // divに乗せる
-      resolve(score_onto_div(img, no++));
+      resolve(score_onto_div(img, no));
+      no++;
     }).then(function(img_div){
       // canvasにする
       return div2img(img_div);
@@ -107,6 +108,7 @@ function div2img(img_div){
     alert(canvas);
     console.log(canvas);
     img_div.parentNode.insertBefore(canvas, img_div);
+    canvas.id = "img_canvas_" + img_div.id.replace("img_","");
     
     canvas_div.src = canvas.toDataURL();
     canvas_div.style.width = "100%";

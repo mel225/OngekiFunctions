@@ -49,6 +49,7 @@ function score2img(){
       var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
       canvas_div.className = "m_5";
       canvas_div.id = "img_" + no;
+      canvas_div.setAttribute("oncontextmenu", "return true");
       var promise = new Promise(function(resolve, reject){
         html2canvas(img_div, {
         onrendered: function(canvas){

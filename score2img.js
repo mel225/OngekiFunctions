@@ -51,7 +51,8 @@ function score2img(){
       canvas_div.className = "m_5";
       var promise = html2canvas(img_div).then(function(canvas){
         var image = canvas.toDataURL("image/png").replace(/^data:image\/png/, "data:application/octet-stream");
-        $("#"+canvas_div.id).attr("href", image).attr("download", img.src.slice(img.src.lastIndexOf("_")+1));
+        $("#"+canvas_div.id).attr("href", image).attr("download", img.src.slice(img.src.lastIndexOf("_")+1))
+          .attr("data-ajax", false);
         canvas_div.appendChild(document.createElement("img")).src = canvas.toDataURL();
         //canvas_div.src = canvas.toDataURL();
         return Promise.reslove;

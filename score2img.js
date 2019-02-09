@@ -50,6 +50,7 @@ function score2img(){
       canvas_div.className = "m_5";
       canvas_div.id = "img_" + no;
       canvas_div.setAttribute("oncontextmenu", "return true");
+      /*
       var promise = new Promise(function(resolve, reject){
         html2canvas(img_div, {
         onrendered: function(canvas){
@@ -58,7 +59,11 @@ function score2img(){
         }
         });
       });
-      
+      */
+      var promise = html2canvas(img_div).then(function(canvas){
+        canvas_div.src = canvas.toDataURL();
+        return Promise.reslove();
+      });
       no++;
       console.log(canvas_div);
       return promise;

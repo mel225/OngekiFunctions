@@ -71,6 +71,7 @@ function score2img(){
 }
 
 function score_onto_div(img, no){
+  console.log(img.src);
   return new Promise(function(resolve, reject){
     if(img.src.includes("rating")){
       console.log(img.src.includes("rating"));

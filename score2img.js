@@ -31,7 +31,7 @@ function score2img(){
       if(img.src.includes("rating")){
         var img_div = document.createElement("div");
         img_div.className = "m_t_5 m_b_5";
-        img_div.id = "img_div_" + no;
+        img_div.id = "img_div_" + no++;
         
         var element = img.parentNode.nextElementSibling;
         element.parentNode.insertBefore(img_div, element);
@@ -44,15 +44,15 @@ function score2img(){
           img_div.appendChild(score_div);
         }
         
-        alert("No. " + no + " divに乗せた。");
+        alert(img_div.id + " divに乗せた。");
         resolve(img_div);
       }else{
         reject();
       }
-    }).then(function(img_div){
+    }).then(function(img_div, n){
       // canvasにする
       var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
-      canvas_div.id = "img_" + no;
+      canvas_div.id = img_div.id.replace("div_", "");
       canvas_div.className = "m_5";
       
       return html2canvas(img_div).then(function(canvas){
@@ -65,19 +65,18 @@ function score2img(){
           */
         canvas_div.style.width = "100%";
         console.log(canvas_div);
-        alert("No. " + no + " canvasにした。");
+        alert(img_div.id + " canvasにした。");
         return img_div;
       });
     }).then(function(img_div){
       // img_divを非表示にする
       img_div.style.display = "none";
+      alert(img_div.id + " finished.");
       return;
     }).catch(function(){
       console.log("catched");
       return;
     });
-    alert("img_" + no + " finished.");
-    no++;
   })).then(function(){
     // img_div以外の要素に右クリック禁止属性を付与する
     document.body.oncontextmenu = "";

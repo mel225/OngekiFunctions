@@ -62,17 +62,17 @@ function score2img(){
     for(i=0; document.getElementById("img_"+i); i++){
       document.getElementById("img_div_" + i).style.display = "none";
     }
-  });
 
-  document.body.oncontextmenu = "";
-  document.oncontextmenu = "";
-  recursion(document);
+    document.body.oncontextmenu = "";
+    document.oncontextmenu = "";
+    recursion(document);
+  });
 }
 
 function recursion(obj){
   var tempArray = Array.prototype.slice.call(obj.children);
   /*ここで要素を何か操作する*/
-  console.log('"obj.localName" = ' + obj.localName);
+  console.log(obj);
   if(!obj.id || !obj.id.includes("img_")){
     obj.oncontextmenu = function(){return false;};
     console.log("   oncontextmenu change to false.");

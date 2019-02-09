@@ -44,7 +44,7 @@ function score2img(){
           img_div.appendChild(score_div);
         }
         
-        console.log("divに乗せた。");
+        alert("No. " + no + " divに乗せた。");
         resolve(img_div);
       }else{
         reject();
@@ -54,14 +54,18 @@ function score2img(){
       var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
       canvas_div.id = "img_" + no;
       canvas_div.className = "m_5";
+      
       return html2canvas(img_div).then(function(canvas){
         canvas_div.src = canvas.toDataURL();
+        /*
         console.log("w:h", canvas_div.scrollHeight, ":", canvas_div.scrollWidth);
         var ratio = canvas_div.scrollHeight / canvas_div.scrollWidth;
         canvas_div.style.width = document.body.clientWidth;
         canvas_div.style.height = document.body.clientWidth * ratio;
+          */
+        canvas_div.style.width = "100%";
         console.log(canvas_div);
-        conosole.log("canvasにした。");
+        alert("No. " + no + " canvasにした。");
         return img_div;
       });
     }).then(function(img_div){
@@ -72,13 +76,14 @@ function score2img(){
       console.log("catched");
       return;
     });
-    console.log("img_" + no + " finished.");
+    alert("img_" + no + " finished.");
     no++;
   })).then(function(){
     // img_div以外の要素に右クリック禁止属性を付与する
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
     document.body.childNodes.forEach(recursion);
+    console.log("========== completed. ==========");
   });
 }
 
@@ -89,10 +94,9 @@ function recursion(obj){
     console.log(obj);
     if(!obj.id || !obj.id.includes("img_")){
       obj.oncontextmenu = function(){return false;};
-      console.log("   oncontextmenu change to false.");
       tempArray.forEach(recursion);
     }else if(obj.id){
-      alert(obj);
+      console.log(obj);
       obj.parentNode.oncontextmenu = "";
     }
   }

@@ -45,7 +45,7 @@ function score2img(){
   var no = 0;
   
   return Promise.all([].map.call(title_imgs, function(img){
-    return new Promise(resolve, reject(){
+    return new Promise(function(resolve, reject){
       // divに乗せる
       return score_onto_div(img);
     }).then(function(img_div){

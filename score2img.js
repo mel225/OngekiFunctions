@@ -1,6 +1,19 @@
-read_html2canvas().then(score2img);
+//load_html2canvas().then(score2img);
+load_html2canvas().then(
+  function(){
+    console.log("loaded html2canvas");
+    var btn = document.body.appendChild(document.createElement("div"));
+    btn.style.width = "100%";
+    btn.style.height = "20px";
+    btn.style.background = "#fff";
+    btn.innerText = "score2imgを実行する";
+    btn.onclick = function(){
+      if(document.getElementById("img_0"))
+        score2img();
+    };
+  });
 
-function read_html2canvas(){
+function load_html2canvas(){
   return new Promise(function(resolve, reject){
     if(location.href != "https://ongeki-net.com/ongeki-mobile/home/ratingTargetMusic/"){
       if(window.confirm("指定のページでの実行をお願いいたします。\n指定ページへ移動しますか？（ログインが必要です）")){
@@ -25,59 +38,22 @@ function read_html2canvas(){
 function score2img(){
   var title_imgs = document.getElementsByClassName("title");
   var no = 0;
-  // 強制的にviewportを書き換えるviewportContent = "width=device-width,initial-scale=1.0,user-scalable=yes,shrink-to-fit=no";
-  var defaultIsiOS = isiOS;
-  isiOS = false;
-  updateMetaViewport();
   
   return Promise.all([].map.call(title_imgs, function(img){
     return new Promise(function(resolve, reject){
       // divに乗せる
-      if(img.src.includes("rating")){
-        var img_div = document.createElement("div");
-        img_div.className = "m_t_5 m_b_5";
-        img_div.id = "img_div_" + no++;
-        
-        var element = img.parentNode.nextElementSibling;
-        element.parentNode.insertBefore(img_div, element);
-
-        console.log(img_div, element);
-        while(element.tagName.toLowerCase() == "div"){
-          var score_div = element;
-          element = element.nextElementSibling;
-          score_div.parentNode.removeChild(score_div);
-          img_div.appendChild(score_div);
-        }
-        
-        alert(img_div.id + " divに乗せた。");
+      var img_div = score_onto_div(img);
+      if(img_div){
         resolve(img_div);
       }else{
         reject();
       }
-    }).then(function(img_div, n){
+    }).then(function(img_div){
       // canvasにする
-      var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
-      canvas_div.id = img_div.id.replace("div_", "");
-      canvas_div.className = "m_5";
-      
-      return html2canvas(img_div).then(function(canvas){
-        canvas_div.src = canvas.toDataURL();
-        /*
-        console.log("w:h", canvas_div.scrollHeight, ":", canvas_div.scrollWidth);
-        var ratio = canvas_div.scrollHeight / canvas_div.scrollWidth;
-        canvas_div.style.width = document.body.clientWidth;
-        canvas_div.style.height = document.body.clientWidth * ratio;
-          */
-        canvas_div.style.width = "100%";
-        $("#"+canvas_div.id).css({"-webkit-touch-callout":"default", "touch-callout":"default"});
-        console.log(canvas_div);
-        alert(img_div.id + " canvasにした。");
-        return img_div;
-      });
+      return div2img(img_div);
     }).then(function(img_div){
       // img_divを非表示にする
-      img_div.style.display = "none";
-      alert(img_div.id + " finished.");
+      //img_div.style.display = "none";
       return;
     }).catch(function(){
       console.log("catched");
@@ -88,10 +64,52 @@ function score2img(){
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
     document.body.childNodes.forEach(recursion);
-    isiOS = defaultIsiOS;
-    updateMetaViewport();
     console.log("========== completed. ==========");
   });
+}
+
+function score_onto_div(img){
+  if(img.src.includes("rating")){
+    var img_div = document.createElement("div");
+    img_div.className = "m_t_5 m_b_5";
+    img_div.id = "img_div_" + no++;
+    
+    var element = img.parentNode.nextElementSibling;
+    element.parentNode.insertBefore(img_div, element);
+    
+    console.log(img_div, element);
+    while(element.tagName.toLowerCase() == "div"){
+      var score_div = element;
+      element = element.nextElementSibling;
+      score_div.parentNode.removeChild(score_div);
+      img_div.appendChild(score_div);
+    }
+    
+    console.log(img_div.id + " divに乗せた。");
+    return img_div;
+  }else{
+    return null;
+  }
+}
+
+function div2img(img_div){
+  // canvasにする
+  var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
+  canvas_div.id = img_div.id.replace("div_", "");
+  canvas_div.className = "m_5";
+  
+  return html2canvas(img_div).then(function(canvas){
+    alert(canvas);
+    console.log(canvas);
+    img_div.parentNode.insertBefore(canvas, img_div);
+    
+    canvas_div.src = canvas.toDataURL();
+    canvas_div.style.width = "100%";
+    $("#"+canvas_div.id).css({"-webkit-touch-callout":"default", "touch-callout":"default"});
+    console.log(canvas_div);
+    console.log(img_div.id + " canvasにした。");
+    return img_div;
+  }
 }
 
 function recursion(obj){

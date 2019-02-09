@@ -47,11 +47,9 @@ function score2img(){
   return Promise.all([].map.call(title_imgs, function(img){
     return new Promise(function(resolve, reject){
       // divに乗せる
-      console.log(img_div.id + " divに乗せる。");
       return score_onto_div(img, no++);
     }).then(function(img_div){
       // canvasにする
-      console.log(img_div.id + " canvasにする。");
       return div2img(img_div);
     }).then(function(img_div){
       // img_divを非表示にする

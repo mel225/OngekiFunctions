@@ -55,12 +55,13 @@ function score2img(){
     }).then(function(img_div){
       // img_divを非表示にする
       //img_div.style.display = "none";
-      return;
+      return Promise.resolve;
     }).catch(function(){
       console.log("catched");
-      return;
+      return Promise.resolve;
     });
   })).then(function(){
+    console.log("右クリック禁止属性の操作");
     // img_div以外の要素に右クリック禁止属性を付与する
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
@@ -70,10 +71,8 @@ function score2img(){
 }
 
 function score_onto_div(img, no){
-  console.log(img.src);
   return new Promise(function(resolve, reject){
     if(img.src.includes("rating")){
-      console.log(img.src.includes("rating"));
       var img_div = document.createElement("div");
       img_div.className = "m_t_5 m_b_5";
       img_div.id = "img_div_" + no;
@@ -92,7 +91,6 @@ function score_onto_div(img, no){
       console.log(img_div.id + " divに乗せた。");
       resolve(img_div);
     }else{
-      console.log(img.src.includes("rating"));
       return Promise.reject;
     }
   });

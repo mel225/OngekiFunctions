@@ -72,9 +72,10 @@ function score2img(){
 function recursion(obj){
   var tempArray = Array.prototype.slice.call(obj.children);
   /*ここで要素を何か操作する*/
-  //console.log('"obj.localName" = ' + obj.localName);
+  console.log('"obj.localName" = ' + obj.localName);
   if(!obj.id || !obj.id.includes("img_")){
     obj.oncontextmenu = function(){return false;};
+    console.log("   oncontextmenu change to false.");
   }
   tempArray.forEach(recursion);
 }

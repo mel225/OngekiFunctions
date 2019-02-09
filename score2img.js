@@ -24,6 +24,7 @@ function read_html2canvas(){
 function score2img(){
   if(document.getElementById("mel225_score2img")){
     return Promise.reject;
+  }
   var title_imgs = document.getElementsByClassName("title");
   var no = 0;
   return Promise.all([].map.call(title_imgs, function(img){
@@ -67,6 +68,7 @@ function score2img(){
     });
     no++;
   })).then(function(){
+    // img_div以外の要素に右クリック禁止属性を付与する
     document.body.oncontextmenu = "";
     document.oncontextmenu = "";
     document.body.childNodes.forEach(recursion);

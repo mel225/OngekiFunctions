@@ -10,7 +10,7 @@ load_html2canvas().then(
     btn.innerText = "score2imgを実行する";
     btn.onclick = function(){
       alert("ボタンがクリックされました。");
-      if(document.getElementById("img_0"))
+      if(!document.getElementById("img_0"))
         score2img();
     };
     btn.id = "exec_button";

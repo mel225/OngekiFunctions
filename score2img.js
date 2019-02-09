@@ -72,6 +72,7 @@ function score2img(){
 }
 
 function score_onto_div(img){
+  console.log(img.src);
   if(img.src.includes("rating")){
     var img_div = document.createElement("div");
     img_div.className = "m_t_5 m_b_5";

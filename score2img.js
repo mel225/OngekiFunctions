@@ -73,6 +73,8 @@ function score2img(){
     document.oncontextmenu = "";
     document.body.childNodes.forEach(recursion);
     console.log("========== completed. ==========");
+  }, function(){
+    console.log("catched?");
   });
 }
 

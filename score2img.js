@@ -32,7 +32,7 @@ function score2img(){
         img_div.style.display = "block";
       }else{
         element = img.parentNode.nextElementSibling;
-        img_div = element.parentNode.insertBefore(element, document.createElement("div"));
+        img_div = element.parentNode.insertBefore(document.createElement("div"), element);
         img_div.className = "m_t_5 m_b_5";
         
         while(element.tagName.toLowerCase() == "div"){
@@ -43,7 +43,7 @@ function score2img(){
         }
       }
       
-      var canvas_div = img_div.parentNode.insertBefore(img_div, document.createElement("img"));
+      var canvas_div = img_div.parentNode.insertBefore(document.createElement("img"), img_div);
       canvas_div.className = "m_5";
       canvas_div.id = "img_" + no;
       var promise = new Promise(function(resolve, reject){

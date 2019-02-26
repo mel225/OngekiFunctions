@@ -20,8 +20,10 @@ function exec(d){
     a.id = "mel225_download";
     input.type = "button";
     input.onclick = getImage;
+    input.style.width = "100%";
     input.innerText = "ダウンロード";
     alert("ボタンを押してね。");
+    console.log(a);
   });
 }
 

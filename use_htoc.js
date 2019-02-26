@@ -12,7 +12,7 @@ if(document.getElementById("mel225_html2canvas")){
 
 function exec(d){
   console.log("---- mel225 html2canvas ----");
-  html2canvas(d).then(function(canvas){
+  html2canvas(d.body).then(function(canvas){
     var input = d.body.appendChild(d.createElement("input"));
     var a = input.appendChild(d.createElement("a"));
     a.href = canvas.toDataURL();

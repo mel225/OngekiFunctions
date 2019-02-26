@@ -1,4 +1,4 @@
-if(document.getElementById("mel225")){
+if(document.getElementById("mel225_html2canvas")){
   exec(document);
 }else{
   var s = document.head.appendChild(document.createElement("script"));

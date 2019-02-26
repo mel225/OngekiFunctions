@@ -3,7 +3,7 @@ if(document.getElementById("mel225_html2canvas")){
 }else{
   var s = document.head.appendChild(document.createElement("script"));
   s.id = "mel225_html2canvas";
-  s.src = "html2canvas.js";
+  s.src = "https://mel225.github.io/OngekiFunctions/html2canvas.js";
   s.onload = function(){
     alert("html2canvas 読込完了");
     exec(document);

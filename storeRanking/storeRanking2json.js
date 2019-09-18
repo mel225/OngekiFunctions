@@ -187,21 +187,27 @@ javascript:
   }
 
   /* XHRをする関数 */
-  function doXHR(url, params, callback){
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function(){
-      if(request.readyState = 4 && request.status == 200){
-        if(request.responseURL.indexOf(url) == -1){
-          alert("アクセスに失敗しました。\nログインしなおしてください。");
-          location.href = "https://ongeki-net.com/ongeki-mobile/";
-        }else{
-          callback(request.response, arguments[3]);
+  function doXHR(url, params, callback, arg){
+    return new Promise(function(resolve, reject){
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function(){
+        if(request.readyState = 4 && request.status == 200){
+          if(request.responseURL.indexOf(url) == -1){
+            reject();
+          }else{
+            resolve(request.response);
+          }
+          reject();
         }
-      }
-    };
-    request.open("GET", url + "?" + params.join("&"), true);
-    request.responseType = "document";
-    request.send("");
+      };
+      request.open("GET", url + "?" + params.join("&"), true);
+      request.responseType = "document";
+      request.send("");
+    }).then(function(data){callback(data, arg)}, function(){
+      alert("アクセスに失敗しました。\nログインしなおしてください。");
+      location.href = "https://ongeki-net.com/ongeki-mobile/";
+    });
   }
+                     
   
 }) (document);
